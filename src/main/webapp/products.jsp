@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.*, music.business.Product, music.data.ProductIO" %>
 <%
+    // Initialize ProductIO with the product.txt
     String filePath = application.getRealPath("/META-INF/product.txt");
     ProductIO.init(filePath);
     List<Product> productList = ProductIO.selectProducts();
@@ -34,15 +35,15 @@
                     <td>${product.description}</td>
                     <td>${product.priceCurrencyFormat}</td>
                     <td>
-                        <a href="productMaint?action=editProduct&productCode=${product.code}">Edit</a> |
-                        <a href="productMaint?action=deleteProduct&productCode=${product.code}">Delete</a>
+                        <a href="editProduct.jsp?productCode=${product.code}">Edit</a> |
+                        <a href="deleteConfirmation.jsp?productCode=${product.code}">Delete</a>
                     </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
     
-    <!-- ADD Product Form -->
+    <!-- Add Product Form -->
     <div style="width: 80%; margin: 20px auto;">
         <h2>Add Product</h2>
         <form action="productMaint" method="post">

@@ -1,0 +1,77 @@
+package music.controllers;
+
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
+import java.io.IOException;
+import music.business.Product;
+import music.data.ProductIO;
+
+import java.util.List;
+
+@WebServlet("/productMaint")  // This annotation replaces the need for web.xml configuration
+public class ProductMaintenanceServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String filePath = getServletContext().getRealPath("/META-INF/product.txt");
+        ProductIO.init(filePath);
+
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "viewProducts"; 
+        }
+
+        String url = "/products.jsp";
+
+        if (action.equals("addProduct")) {
+            // Read user input
+            String code = request.getParameter("code");
+            String description = request.getParameter("description");
+            double price = Double.parseDouble(request.getParameter("price"));
+
+            // Create new product and add it to the text file
+            Product product = new Product();
+            product.setCode(code);
+            product.setDescription(description);
+            product.setPrice(price);
+
+            ProductIO.insertProduct(product);
+            url = "/products.jsp";
+        } else if (action.equals("updateProduct")) {
+            // Read user input
+            String code = request.getParameter("code");
+            String description = request.getParameter("description");
+            double price = Double.parseDouble(request.getParameter("price"));
+
+            // Update existing product
+            Product product = new Product();
+            product.setCode(code);
+            product.setDescription(description);
+            product.setPrice(price);
+
+            ProductIO.updateProduct(product);
+            url = "/products.jsp";
+        } else if (action.equals("deleteProduct")) {
+            // Read user input
+            String code = request.getParameter("code");
+
+            // Delete product
+            Product product = ProductIO.selectProduct(code);
+            ProductIO.deleteProduct(product);
+            url = "/products.jsp";
+        }
+
+        // Forward to the appropriate page
+        getServletContext()
+                .getRequestDispatcher(url)
+                .forward(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
+}
