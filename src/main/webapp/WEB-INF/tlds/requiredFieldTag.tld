@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="https://jakarta.ee/xml/ns/jsp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/jsp https://jakarta.ee/xml/ns/jsp/jsp-tagLibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>custom</short-name>
+    <uri>http://yourcompany.com/tags</uri>
+
+    <tag>
+        <name>requiredFieldTag</name>
+        <tag-class>music.business.RequiredFieldTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>fieldValue</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

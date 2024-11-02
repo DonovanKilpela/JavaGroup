@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/WEB-INF/tlds/requiredFieldTag.tld" prefix="custom" %>
+
 <%@ page import="java.util.*, music.business.Product, music.data.ProductIO" %>
 <%
     // Initialize ProductIO with the product.txt
@@ -8,6 +10,7 @@
     List<Product> productList = ProductIO.selectProducts();
     request.setAttribute("productList", productList);
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +22,7 @@
 <body>
     <h1>Products Page</h1>
     <h2>Products</h2>
+
     <table>
         <thead>
             <tr>
@@ -42,24 +46,34 @@
             </c:forEach>
         </tbody>
     </table>
-    
+
     <!-- Add Product Form -->
     <div style="width: 80%; margin: 20px auto;">
         <h2>Add Product</h2>
         <form action="productMaint" method="post">
             <input type="hidden" name="action" value="addProduct">
+            
+            <!-- Code Field with Required Field Custom Tag -->
             <div>
                 <label for="code">Code:</label>
-                <input type="text" id="code" name="code">
+                <input type="text" id="code" name="code" value="${param.code}">
+                <custom:requiredFieldTag fieldValue="${param.code}" />
             </div>
+            
+            <!-- Description Field with Required Field Custom Tag -->
             <div>
                 <label for="description">Description:</label>
-                <input type="text" id="description" name="description">
+                <input type="text" id="description" name="description" value="${param.description}">
+                <custom:requiredFieldTag fieldValue="${param.description}" />
             </div>
+            
+            <!-- Price Field with Required Field Custom Tag -->
             <div>
                 <label for="price">Price:</label>
-                <input type="text" id="price" name="price">
+                <input type="text" id="price" name="price" value="${param.price}">
+                <custom:requiredFieldTag fieldValue="${param.price}" />
             </div>
+            
             <div>
                 <button type="submit">Add Product</button>
                 <a href="products.jsp">View Products</a>
