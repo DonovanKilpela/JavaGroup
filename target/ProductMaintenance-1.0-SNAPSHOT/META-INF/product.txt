@@ -3,4 +3,4 @@ pf01|Paddlefoot - The first CD|12.95
 pf02|Paddlefoot - The second CD|14.95
 jr01|Joe Rut - Genuine Wood Grained Finish|14.95
 1111|idk|300000.0
-||300000.0
+1111|idk|19.95

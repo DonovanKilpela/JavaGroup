@@ -1,4 +1,4 @@
 music\data\ProductIO.class
+music\data\ProductDB.class
 music\controllers\ProductMaintenanceServlet.class
 music\business\Product.class
-music\business\RequiredFieldTag.class

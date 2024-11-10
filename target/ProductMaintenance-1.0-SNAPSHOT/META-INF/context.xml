@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/ProductMaintenance"/>
+<Context path="/ProductMaintenance">
+
+    <!-- Database connection pool configuration -->
+    <Resource name="jdbc/musicDB"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="20" maxIdle="10" maxWaitMillis="-1"
+              username="root"
+              password=""
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/musicdb?serverTimezone=UTC"/>
+
+</Context>
