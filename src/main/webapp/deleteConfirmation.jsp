@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="music.business.Product, music.data.ProductIO" %>
+<%@ page import="music.business.Product, music.data.ProductDB" %>
 <%
-    // Initialize ProductIO with the product.txt
-    String filePath = application.getRealPath("/META-INF/product.txt");
-    ProductIO.init(filePath);
+    // Retrieve product from ProductDB
     String productCode = request.getParameter("productCode");
-    Product product = ProductIO.selectProduct(productCode);
+    Product product = ProductDB.selectProduct(productCode);
     request.setAttribute("product", product);
 %>
 <!DOCTYPE html>

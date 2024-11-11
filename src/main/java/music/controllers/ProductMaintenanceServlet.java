@@ -5,19 +5,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import music.business.Product;
-import music.data.ProductIO;
+import music.data.ProductDB;
 
 import java.util.List;
 
-@WebServlet("/productMaint")  // This annotation replaces the need for web.xml configuration
+@WebServlet("/productMaint")
 public class ProductMaintenanceServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String filePath = getServletContext().getRealPath("/META-INF/product.txt");
-        ProductIO.init(filePath);
-
         String action = request.getParameter("action");
         if (action == null) {
             action = "viewProducts"; 
@@ -31,13 +28,13 @@ public class ProductMaintenanceServlet extends HttpServlet {
             String description = request.getParameter("description");
             double price = Double.parseDouble(request.getParameter("price"));
 
-            // Create new product and add it to the text file
+            // Create new product and add it to the database
             Product product = new Product();
             product.setCode(code);
             product.setDescription(description);
             product.setPrice(price);
 
-            ProductIO.insertProduct(product);
+            ProductDB.insertProduct(product);
             url = "/products.jsp";
         } else if (action.equals("updateProduct")) {
             // Read user input
@@ -51,15 +48,14 @@ public class ProductMaintenanceServlet extends HttpServlet {
             product.setDescription(description);
             product.setPrice(price);
 
-            ProductIO.updateProduct(product);
+            ProductDB.updateProduct(product);
             url = "/products.jsp";
         } else if (action.equals("deleteProduct")) {
             // Read user input
             String code = request.getParameter("code");
 
             // Delete product
-            Product product = ProductIO.selectProduct(code);
-            ProductIO.deleteProduct(product);
+            ProductDB.deleteProduct(code);
             url = "/products.jsp";
         }
 
