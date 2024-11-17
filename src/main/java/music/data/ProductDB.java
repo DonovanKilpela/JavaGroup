@@ -27,7 +27,7 @@ public class ProductDB {
 
             while (rs.next()) {
                 Product product = new Product();
-                product.setId(rs.getLong("product_id"));
+                product.setProductId(rs.getLong("product_id"));
                 product.setCode(rs.getString("code"));
                 product.setDescription(rs.getString("description"));
                 product.setPrice(rs.getDouble("price"));
@@ -51,7 +51,7 @@ public class ProductDB {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     product = new Product();
-                    product.setId(rs.getLong("product_id"));
+                    product.setProductId(rs.getLong("product_id"));
                     product.setCode(rs.getString("code"));
                     product.setDescription(rs.getString("description"));
                     product.setPrice(rs.getDouble("price"));

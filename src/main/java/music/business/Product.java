@@ -1,70 +1,63 @@
+
 package music.business;
 
 import java.text.NumberFormat;
-import java.io.Serializable;
+import jakarta.persistence.*;
 
-public class Product implements Serializable {
+@Entity
+@Table(name = "products")
+public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private Long productId;
+
+    @Column(name = "code", unique = true, nullable = false)
     private String code;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "price")
     private double price;
 
     public Product() {}
 
-    public Long getId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setId(Long productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getArtistName() {
-        String artistName = description.substring(0, description.indexOf(" - "));
-        return artistName;
-    }
-
-    public String getAlbumName() {
-        String albumName = description.substring(description.indexOf(" - ") + 3);
-        return albumName;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
         return price;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public String getPriceCurrencyFormat() {
         NumberFormat currency = NumberFormat.getCurrencyInstance();
         return currency.format(price);
-    }
-
-    public String getImageURL() {
-        String imageURL = "/musicStore/images/" + code + "_cover.jpg";
-        return imageURL;
-    }
-
-    public String getProductType() {
-        return "Audio CD";
     }
 }

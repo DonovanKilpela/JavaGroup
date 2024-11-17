@@ -1,13 +1,27 @@
 package music.business;
 
-import java.text.NumberFormat;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 import java.io.Serializable;
+import java.text.NumberFormat;
 
+@Entity
 public class Product implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+
+    @Column(nullable = false)
     private String code;
+
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
     private double price;
 
     public Product() {}
@@ -36,16 +50,6 @@ public class Product implements Serializable {
         return description;
     }
 
-    public String getArtistName() {
-        String artistName = description.substring(0, description.indexOf(" - "));
-        return artistName;
-    }
-
-    public String getAlbumName() {
-        String albumName = description.substring(description.indexOf(" - ") + 3);
-        return albumName;
-    }
-
     public void setPrice(double price) {
         this.price = price;
     }
@@ -57,14 +61,5 @@ public class Product implements Serializable {
     public String getPriceCurrencyFormat() {
         NumberFormat currency = NumberFormat.getCurrencyInstance();
         return currency.format(price);
-    }
-
-    public String getImageURL() {
-        String imageURL = "/musicStore/images/" + code + "_cover.jpg";
-        return imageURL;
-    }
-
-    public String getProductType() {
-        return "Audio CD";
     }
 }
