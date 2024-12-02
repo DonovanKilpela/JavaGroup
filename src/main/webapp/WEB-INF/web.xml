@@ -3,10 +3,57 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
    version="6.0">
+
+    <!-- Session Configuration -->
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 
+    <!-- Security Constraint for Restricted Access -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>RestrictedPages</web-resource-name>
+            <url-pattern>/products.jsp</url-pattern>
+            <url-pattern>/editProduct.jsp</url-pattern>
+            <url-pattern>/deleteConfirmation.jsp</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>programmer</role-name>
+            <role-name>librarian</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <!-- Public Access to Index Page -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>PublicPage</web-resource-name>
+            <url-pattern>/index.html</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <!-- Security Roles -->
+    <security-role>
+        <role-name>programmer</role-name>
+    </security-role>
+    <security-role>
+        <role-name>librarian</role-name>
+    </security-role>
+
+    <!-- Login Configuration -->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>ProductMaintenanceRealm</realm-name>
+    </login-config>
+
+    <!-- Error Page for Unauthorized Access -->
+    <error-page>
+        <error-code>401</error-code>
+        <location>/index.html</location>
+    </error-page>
 </web-app>
